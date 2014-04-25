@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/lucene
+END
+ItemIdHitExtractor.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/lucene/ItemIdHitExtractor.java
+END
+Indexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/lucene/Indexer.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/lucene/package.html
+END
+IndexSearcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/lucene/IndexSearcher.java
+END

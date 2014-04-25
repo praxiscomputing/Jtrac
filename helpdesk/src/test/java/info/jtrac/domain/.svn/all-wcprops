@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain
+END
+UserTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain/UserTest.java
+END
+FieldTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain/FieldTest.java
+END
+RoleTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain/RoleTest.java
+END
+CountsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain/CountsTest.java
+END
+ExcelFileTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain/ExcelFileTest.java
+END
+ItemTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain/ItemTest.java
+END
+MetadataTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jtrac/!svn/ver/2/jtrac/src/test/java/info/jtrac/domain/MetadataTest.java
+END

@@ -1,0 +1,68 @@
+<html>
+<head>
+<style type="text/css">
+td {
+	vertical-align: top;
+}
+</style>
+
+</head>
+
+<body>
+
+	<wicket:extend>
+		<fieldset>
+			<legend class="label">
+				<wicket:message key="reports.reportTypes"></wicket:message>
+			</legend>
+			<form wicket:id="form">
+				<table>
+					<tr>
+						<td align="center">
+							<table>
+								<tr>
+									<th><wicket:message key="report_list.report" /></th>
+									<th><wicket:message key="reports.startDate" /></th>
+									<th><wicket:message key="reports.endDate" /></th>
+								</tr>
+								<tr style="margin-bottom: 5pdp;">
+									<td style="vertical-align: top; margin-right: 5dp;"><span
+										wicket:id="group"></span></td>
+									<td style="vertical-align: top;"><input type="text"
+										wicket:id="startDate" /></td>
+									<td style="vertical-align: top;"><input type="text"
+										wicket:id="endDate" /></td>
+								</tr>
+								<tr>
+									<td colspan="2">&nbsp;</td>
+								</tr>
+								<tr>
+									<td>
+										<table>
+											<tr>
+												<th><wicket:message key="report_list.space" /></th>
+												<th>&nbsp;</th>
+												<th><wicket:message key="report_list.reportFormat" /></th>
+											</tr>
+											<tr>
+												<td style="vertical-align: top;"><select
+													wicket:id="spaces"></select></td>
+												<td>&nbsp;</td>
+												<td style="vertical-align: top;"><span
+													wicket:id="reportFormats"></span></td>
+											</tr>
+										</table>
+									</td>
+
+									<td align="right" style="vertical-align: bottom; text-align: right;"><input type="submit"
+										wicket:message="value:submit" /></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</fieldset>
+	</wicket:extend>
+</body>
+</html>

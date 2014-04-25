@@ -1,0 +1,30 @@
+<html>
+<body>
+	<wicket:extend>
+		<form wicket:id="form">
+			<table>
+				<tr>
+					<th wicket:id="headings" align="left">
+						<label wicket:id="heading"></label>
+					</th>
+				</tr>
+				<tr wicket:id="listview">
+					<td><label wicket:id="category"></label></td>
+					<td><input type="checkbox" wicket:id="assign_category_yn" /></td>
+				</tr>
+				<tr>
+					<td><i><wicket:message key="space_category_manage_form.instruction" /></i></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td><i><wicket:message key="space_category_manage_form.instruction" /></i></td>
+				</tr>
+				<tr>
+					<td><input type="submit" wicket:message="value:submit" /></td>
+				</tr>
+			</table>
+		</form>
+	</wicket:extend>
+</body>
+</html>

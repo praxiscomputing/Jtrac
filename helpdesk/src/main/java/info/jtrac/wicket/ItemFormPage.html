@@ -1,0 +1,152 @@
+<html>
+<head>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("input:text").addClass("ui-widget ui-widget-content ui-corner-all");
+	});
+</script>
+</head>
+<body>
+	<wicket:extend>
+		<form wicket:id="form">
+			<span wicket:id="feedback"></span>
+			<table class="bdr-collapse">
+				<tr>
+					<td>
+						<table class="jtrac">
+							<tr>
+								<td class="label"><wicket:message key="item_form.summary" />
+									<font color="red">*</font></td>
+								<td><input wicket:id="summary" style="width: 49.7em"
+									type="text" maxlength="255" /> <input type="submit"
+									wicket:id="delete" wicket:message="value:delete" /></td>
+							</tr>
+							<tr>
+								<td class="label"><wicket:message key="item_form.detail" />
+									<font color="red">*</font></td>
+								<td><textarea id="itemFormDetail" wicket:id="detail"
+										rows="10" style="width: 600px"></textarea></td>
+							</tr>
+							<tr>
+								<td class="label"><wicket:message
+										key="item_form.originator" /> <font color="red">*</font></td>
+								<td><input wicket:id="originator" type="text" /></td>
+							</tr>
+							<tr>
+								<td class="label"><wicket:message
+										key="item_form.originatorContact" /> <font color="red">*</font></td>
+								<td><input wicket:id="originator_contact" type="text" /></td>
+							</tr>
+							<tr>
+								<td class="label"><wicket:message key="item_form.dateAdded" />
+									<font color="red">*</font></td>
+								<td>
+									<!-- <span wicket:id="dateAdded" /> --> <!-- <input type="text" id="datepicker" wicket:id="dateAdded"> -->
+									<input type="text" wicket:id="dateTextField" />
+										<!-- <span wicket:id="dateTimeField"></span> -->
+								</td>
+							</tr>
+							<tr>
+								<td class="label"><wicket:message key="item_form.severity" />
+									<font color="red">*</font></td>
+								<td><select wicket:id="severities" /></td>
+							</tr>
+							<tr>
+								<td />
+								<td><span
+									style="font: italic; text-align: left; color: red; font-size: small;"
+									wicket:id="auto_escalation_period"></span></td>
+							</tr>
+							<tr>
+								<td class="label"><wicket:message key="item_form.category" />
+									<font color="red">*</font></td>
+								<td><select wicket:id="categories" /></td>
+							</tr>
+							<tr wicket:id="hideAssignedTo">
+								<td class="label"><wicket:message key="item_form.assignTo" />
+									<font color="red">*</font></td>
+								<td>
+									<div wicket:id="border">
+										<select wicket:id="assignedTo" />
+									</div>
+								</td>
+							</tr>
+							<tr wicket:id="hideEditReason">
+								<td class="label"><wicket:message
+										key="item_form.editReason" /> <font color="red">*</font></td>
+								<td><textarea id="itemFormReason" wicket:id="editReason"
+										rows="5" cols="40" style="width: 600px"></textarea></td>
+							</tr>
+							<tr>
+								<td />
+								<td><input type="checkbox" wicket:id="sendNotifications" />
+									<wicket:message key="item_form.sendNotifications" /></td>
+
+							</tr>
+							<tr>
+								<td />
+								<td><input type="checkbox" wicket:id="smsNotifications" />
+									<wicket:message key="item_form.smsNotifications" /></td>
+							</tr>
+							<tr>
+								<td />
+								<td><input type="submit" wicket:message="value:submit" />
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td wicket:id="hideNotifyList" rowspan="3">
+						<table class="jtrac">
+							<tr>
+								<th align="center"><wicket:message
+										key="item_form.notifyByEmail" /></th>
+							</tr>
+							<tr>
+								<td wicket:id="itemUsers"></td>
+							</tr>
+							<tr>
+								<th align="center"><wicket:message
+										key="item_form.notifyBySMS" /></th>
+							</tr>
+							<tr>
+								<td wicket:id="itemUsersSMS"></td>
+							</tr>
+
+							<tr>
+								<th align="center"><wicket:message
+										key="item_form.attachment" /></th>
+							</tr>
+							<tr>
+								<td><input wicket:id="file" size="15" type="file"
+									multiple="multiple" /></td>
+							</tr>
+							<tr>
+								<td><wicket:message key="item_form.attachmentLimit" /></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- tr valign="top">
+					<td colspan="2">
+						<table class="jtrac">
+							<span wicket:id="fields"></span>
+							<tr>
+								<td colspan="2"><a href="#" wicket:id="cancel"><img
+										src="resources/cancel.gif" class="nav-link" />
+									<wicket:message key="cancel" /></a></td>
+							</tr>
+						</table>
+					</td>
+
+				</tr -->
+			</table>
+		</form>
+	</wicket:extend>
+</body>
+</html>

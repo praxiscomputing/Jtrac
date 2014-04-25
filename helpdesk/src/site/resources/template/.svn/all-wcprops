@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template
+END
+hibernate-logo.png
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template/hibernate-logo.png
+END
+jetty-logo.png
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template/jetty-logo.png
+END
+maven-base.css
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template/maven-base.css
+END
+wicket-logo.png
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template/wicket-logo.png
+END
+favicon.ico
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template/favicon.ico
+END
+maven-site.vm
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template/maven-site.vm
+END
+hsqldb-logo.png
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtrac/!svn/ver/2/jtrac/src/site/resources/template/hsqldb-logo.png
+END

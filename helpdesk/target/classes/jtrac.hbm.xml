@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="info.jtrac.domain">
+ <class name="Item" table="items">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <natural-id mutable="true">
+   <many-to-one column="space_id" index="idx_items_space_id"
+    name="space" not-null="true"/>
+   <property column="sequence_num" generated="never"
+    index="idx_items_sequence_num" lazy="false" name="sequenceNum"/>
+  </natural-id>
+  <version column="version" generated="never" name="version" type="integer"/>
+  <property column="type" generated="never" lazy="false" name="type"/>
+  <many-to-one column="parent_id" name="parent"/>
+  <property column="time_stamp" generated="never" lazy="false" name="timeStamp"/>
+  <property column="planned_effort" generated="never" lazy="false" name="plannedEffort"/>
+  <set cascade="all" inverse="true" name="children" order-by="id" sort="unsorted">
+   <key column="parent_id"/>
+   <one-to-many class="Item"/>
+  </set>
+  <set cascade="all" inverse="true" name="history" order-by="id" sort="unsorted">
+   <key column="item_id"/>
+   <one-to-many class="History"/>
+  </set>
+  <set cascade="all" name="itemUsers" sort="unsorted">
+   <key column="item_id"/>
+   <one-to-many class="ItemUser"/>
+  </set>
+  <set cascade="all" inverse="true" name="relatedItems" sort="unsorted">
+   <key column="item_id"/>
+   <one-to-many class="ItemItem"/>
+  </set>
+  <set inverse="true" name="relatingItems" sort="unsorted">
+   <key column="related_item_id"/>
+   <one-to-many class="ItemItem"/>
+  </set>
+  <set cascade="all" inverse="true" name="itemTags" sort="unsorted">
+   <key column="item_id"/>
+   <one-to-many class="ItemTag"/>
+  </set>
+  <set cascade="all" inverse="true" name="attachments" sort="unsorted">
+   <key column="item_id"/>
+   <one-to-many class="Attachment"/>
+  </set>
+  <!-- identical to History (except indexes) -->
+  <many-to-one column="logged_by" index="idx_items_logged_by"
+   name="loggedBy" not-null="true"/>
+  <many-to-one column="assigned_to" index="idx_items_assigned_to" name="assignedTo"/>
+  <property column="summary" generated="never" lazy="false" name="summary"/>
+  <property column="detail" generated="never" lazy="false" name="detail" type="text"/>
+  <property column="status" generated="never" index="idx_items_status"
+   lazy="false" name="status"/>
+  <property column="severity" generated="never"
+   index="idx_items_severity" lazy="false" name="severity"/>
+  <property column="priority" generated="never" lazy="false" name="priority"/>
+  <property column="cus_dbl_01" generated="never" lazy="false" name="cusDbl01"/>
+  <property column="cus_dbl_02" generated="never" lazy="false" name="cusDbl02"/>
+  <property column="cus_dbl_03" generated="never" lazy="false" name="cusDbl03"/>
+  <property column="cus_int_01" generated="never" lazy="false" name="cusInt01"/>
+  <property column="cus_int_02" generated="never" lazy="false" name="cusInt02"/>
+  <property column="cus_int_03" generated="never" lazy="false" name="cusInt03"/>
+  <property column="cus_int_04" generated="never" lazy="false" name="cusInt04"/>
+  <property column="cus_int_05" generated="never" lazy="false" name="cusInt05"/>
+  <property column="cus_int_06" generated="never" lazy="false" name="cusInt06"/>
+  <property column="cus_int_07" generated="never" lazy="false" name="cusInt07"/>
+  <property column="cus_int_08" generated="never" lazy="false" name="cusInt08"/>
+  <property column="cus_int_09" generated="never" lazy="false" name="cusInt09"/>
+  <property column="cus_int_10" generated="never" lazy="false" name="cusInt10"/>
+  <property column="cus_str_01" generated="never" lazy="false" name="cusStr01"/>
+  <property column="cus_str_02" generated="never" lazy="false" name="cusStr02"/>
+  <property column="cus_str_03" generated="never" lazy="false" name="cusStr03"/>
+  <property column="cus_str_04" generated="never" lazy="false" name="cusStr04"/>
+  <property column="cus_str_05" generated="never" lazy="false" name="cusStr05"/>
+  <property column="cus_tim_01" generated="never" lazy="false" name="cusTim01"/>
+  <property column="cus_tim_02" generated="never" lazy="false" name="cusTim02"/>
+  <property column="cus_tim_03" generated="never" lazy="false" name="cusTim03"/>
+  <many-to-one column="spaceSeverityPeriod" name="spaceSeverityPeriod"/>
+  <many-to-one column="category_id" name="category"/>
+  <property column="originator" generated="never" lazy="false" name="originator"/>
+  <property column="originator_contact" generated="never" lazy="false" name="originator_contact"/>
+  <property column="due_date" generated="never" lazy="false" name="dueDate"/>
+  <property column="date_added" generated="never" lazy="false" name="dateAdded"/>
+ </class>
+ <class name="ItemUser" table="item_users">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="user_id" name="user" not-null="true"/>
+  <property column="type" generated="never" lazy="false" name="type"/>
+  <many-to-one column="item_id" name="item"/>
+ </class>
+ <class name="ItemItem" table="item_items">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="item_id" name="item" not-null="true"/>
+  <many-to-one column="related_item_id" name="relatedItem" not-null="true"/>
+  <property column="type" generated="never" lazy="false" name="type"/>
+ </class>
+ <class name="ItemTag" table="item_tags">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="tag_id" name="tag" not-null="true"/>
+  <property column="type" generated="never" lazy="false" name="type"/>
+ </class>
+ <class name="Tag" table="tags">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property column="type" generated="never" lazy="false" name="type"/>
+  <property column="name" generated="never" lazy="false" name="name"
+   not-null="true" unique="true"/>
+  <property column="description" generated="never" lazy="false"
+   name="description" type="text"/>
+ </class>
+ <class name="History" table="history">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <version column="version" generated="never" name="version" type="integer"/>
+  <property column="type" generated="never" lazy="false" name="type"/>
+  <many-to-one column="item_id" name="parent" not-null="true"/>
+  <property column="actual_effort" generated="never" lazy="false" name="actualEffort"/>
+  <many-to-one column="attachment_id" name="attachment"/>
+  <property column="comment" generated="never" lazy="false"
+   name="comment" type="text"/>
+  <!-- identical to Item -->
+  <property column="time_stamp" generated="never" lazy="false" name="timeStamp"/>
+  <many-to-one column="logged_by" name="loggedBy" not-null="true"/>
+  <many-to-one column="assigned_to" name="assignedTo"/>
+  <property column="summary" generated="never" lazy="false" name="summary"/>
+  <property column="detail" generated="never" lazy="false" name="detail" type="text"/>
+  <property column="status" generated="never" lazy="false" name="status"/>
+  <property column="severity" generated="never" lazy="false" name="severity"/>
+  <property column="priority" generated="never" lazy="false" name="priority"/>
+  <property column="cus_dbl_01" generated="never" lazy="false" name="cusDbl01"/>
+  <property column="cus_dbl_02" generated="never" lazy="false" name="cusDbl02"/>
+  <property column="cus_dbl_03" generated="never" lazy="false" name="cusDbl03"/>
+  <property column="cus_int_01" generated="never" lazy="false" name="cusInt01"/>
+  <property column="cus_int_02" generated="never" lazy="false" name="cusInt02"/>
+  <property column="cus_int_03" generated="never" lazy="false" name="cusInt03"/>
+  <property column="cus_int_04" generated="never" lazy="false" name="cusInt04"/>
+  <property column="cus_int_05" generated="never" lazy="false" name="cusInt05"/>
+  <property column="cus_int_06" generated="never" lazy="false" name="cusInt06"/>
+  <property column="cus_int_07" generated="never" lazy="false" name="cusInt07"/>
+  <property column="cus_int_08" generated="never" lazy="false" name="cusInt08"/>
+  <property column="cus_int_09" generated="never" lazy="false" name="cusInt09"/>
+  <property column="cus_int_10" generated="never" lazy="false" name="cusInt10"/>
+  <property column="cus_str_01" generated="never" lazy="false" name="cusStr01"/>
+  <property column="cus_str_02" generated="never" lazy="false" name="cusStr02"/>
+  <property column="cus_str_03" generated="never" lazy="false" name="cusStr03"/>
+  <property column="cus_str_04" generated="never" lazy="false" name="cusStr04"/>
+  <property column="cus_str_05" generated="never" lazy="false" name="cusStr05"/>
+  <property column="cus_tim_01" generated="never" lazy="false" name="cusTim01"/>
+  <property column="cus_tim_02" generated="never" lazy="false" name="cusTim02"/>
+  <property column="cus_tim_03" generated="never" lazy="false" name="cusTim03"/>
+  <many-to-one column="spaceSeverityPeriod" name="spaceSeverityPeriod"/>
+  <many-to-one column="reason_outstanding_id" name="reasonOutstanding"/>
+ </class>
+ <class name="User" table="users">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property column="type" generated="never" lazy="false" name="type"/>
+  <many-to-one column="parent" name="parent"/>
+  <property column="login_name" generated="never"
+   index="idx_users_login_name" lazy="false" length="50"
+   name="loginName" not-null="true" unique="true"/>
+  <property column="name" generated="never" lazy="false" length="50" name="name"/>
+  <property column="cellphone" generated="never" lazy="false"
+   length="10" name="cellPhoneNumber"/>
+  <property column="useCellPhoneNumber" generated="never" lazy="false" name="useCellPhoneNumber"/>
+  <property column="password" generated="never" lazy="false" name="password"/>
+  <property column="email" generated="never" lazy="false" length="50" name="email"/>
+  <property column="locale" generated="never" lazy="false" length="20" name="locale"/>
+  <property column="locked" generated="never" lazy="false" name="locked"/>
+  <many-to-one column="metadata_id" name="metadata"/>
+  <set cascade="all" inverse="true" name="userSpaceRoles" sort="unsorted">
+   <key column="user_id"/>
+   <one-to-many class="UserSpaceRole"/>
+  </set>
+ </class>
+ <class name="UserSpaceRole" table="user_space_roles">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="user_id" name="user"/>
+  <many-to-one column="space_id" name="space"/>
+  <property column="role_key" generated="never" lazy="false"
+   name="roleKey" not-null="true"/>
+ </class>
+ <class name="Space" table="spaces">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <version column="version" generated="never" name="version" type="integer"/>
+  <property column="type" generated="never" lazy="false" name="type"/>
+  <property column="prefix_code" generated="never" lazy="false"
+   length="10" name="prefixCode" unique="true"/>
+  <property column="name" generated="never" lazy="false" length="50" name="name"/>
+  <property column="description" generated="never" lazy="false"
+   name="description" type="text"/>
+  <property column="guest_allowed" generated="never" lazy="false" name="guestAllowed"/>
+  <many-to-one cascade="all" column="metadata_id" name="metadata"/>
+ </class>
+ <class name="SpaceSequence" table="space_sequence">
+  <id column="id" name="id">
+   <generator class="assigned"/>
+  </id>
+  <property column="next_seq_num" generated="never" lazy="false" name="nextSeqNum"/>
+ </class>
+ <class name="Metadata" table="metadata">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <version column="version" generated="never" name="version" type="integer"/>
+  <property column="type" generated="never" lazy="false" name="type"/>
+  <property column="name" generated="never" lazy="false" length="50" name="name"/>
+  <property column="description" generated="never" lazy="false"
+   name="description" type="text"/>
+  <many-to-one column="parent_id" name="parent"/>
+  <property column="xml_string" generated="never" lazy="false"
+   name="xmlString" type="text"/>
+ </class>
+ <class name="Attachment" table="attachments">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="previous_id" name="previous"/>
+  <property column="file_name" generated="never" lazy="false" name="fileName"/>
+  <property column="file_prefix" generated="never" lazy="false" name="filePrefix"/>
+ </class>
+ <class name="Config" table="config">
+  <id column="param" name="param"/>
+  <property column="value" generated="never" lazy="false" name="value"/>
+ </class>
+ <class name="Level" table="z_levels">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property column="level" generated="never" lazy="false" name="level"/>
+ </class>
+ <class name="Severity" table="z_severities">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property column="description" generated="never" lazy="false" name="description"/>
+ </class>
+ <class name="SpaceUserLevel">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="space_id" name="space"/>
+  <many-to-one column="level_id" name="level"/>
+  <many-to-one column="user_id" name="user"/>
+ </class>
+ <class name="SpaceSeverityPeriod" table="z_space_severity_period">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="severity_id" name="severity"/>
+  <many-to-one column="space_id" name="space"/>
+  <property column="period" generated="never" lazy="false" name="period"/>
+ </class>
+ <class name="Reports" table="z_reports">
+  <id column="id" name="id"/>
+  <property column="name" generated="never" lazy="false" name="name"/>
+  <property column="description" generated="never" lazy="false" name="description"/>
+ </class>
+ <class name="Category" table="z_categories">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property column="description" generated="never" lazy="false" name="description"/>
+  <property column="alert_escalate_yn" generated="never" lazy="false" name="alert_escalate_yn"/>
+ </class>
+ <class name="ServerSettings" table="z_server_settings">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property generated="never" lazy="false" name="url"/>
+ </class>
+ <class name="ReasonOutstanding" table="z_reason_outstanding">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property column="description" generated="never" lazy="false" name="description"/>
+ </class>
+ <class name="SpaceCategory" table="z_space_category">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="space_id" name="space"/>
+  <many-to-one column="category_id" name="category"/>
+ </class>
+ <class name="ZSpaceEmail" table="z_space_email">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <property column="email" generated="never" lazy="false" name="email"/>
+  <property column="host" generated="never" lazy="false" name="host"/>
+  <property column="port" generated="never" lazy="false" name="port"/>
+  <property column="username" generated="never" lazy="false" name="username"/>
+  <property column="password" generated="never" lazy="false" name="password"/>
+  <many-to-one column="assign_to" name="user"/>
+  <many-to-one column="space_id" name="space"/>
+ </class>
+ <class name="AlertLog" table="z_alert_logs">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="notified_person" name="user"/>
+  <many-to-one column="item_id" name="item"/>
+  <property column="time_stamp" generated="never" lazy="false" name="time_stamp"/>
+  <property column="due_date" generated="never" lazy="false" name="due_date"/>
+ </class>
+ <class name="EscalationLog" table="z_escalation_logs">
+  <id column="id" name="id">
+   <generator class="native"/>
+  </id>
+  <many-to-one column="assigned_to" name="assigned_user"/>
+  <many-to-one column="escalated_to" name="escalated_to"/>
+  <many-to-one column="item_id" name="item"/>
+  <property column="due_date" generated="never" lazy="false" name="due_date"/>
+  <property column="time_stamp" generated="never" lazy="false" name="time_stamp"/>
+ </class>
+</hibernate-mapping>

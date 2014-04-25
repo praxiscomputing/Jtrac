@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain
+END
+CountsHolder.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/CountsHolder.java
+END
+Metadata.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/Metadata.java
+END
+ColumnHeading.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/ColumnHeading.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtrac/!svn/ver/19/jtrac/src/main/java/info/jtrac/domain/User.java
+END
+BatchInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/BatchInfo.java
+END
+SpaceSequence.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/SpaceSequence.java
+END
+ItemTag.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/ItemTag.java
+END
+ItemItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/ItemItem.java
+END
+Space.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/Space.java
+END
+Counts.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/Counts.java
+END
+Attachment.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/Attachment.java
+END
+WorkflowRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/WorkflowRenderer.java
+END
+Config.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/Config.java
+END
+ItemUser.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/ItemUser.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/domain/package.html
+END
+ItemRefId.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/ItemRefId.java
+END
+ItemSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/ItemSearch.java
+END
+Tag.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/Tag.java
+END
+Field.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/Field.java
+END
+FilterCriteria.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/FilterCriteria.java
+END
+Role.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/domain/Role.java
+END
+AbstractItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jtrac/!svn/ver/19/jtrac/src/main/java/info/jtrac/domain/AbstractItem.java
+END
+History.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/History.java
+END
+ExcelFile.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtrac/!svn/ver/7/jtrac/src/main/java/info/jtrac/domain/ExcelFile.java
+END
+Item.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/domain/Item.java
+END
+UserSpaceRole.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jtrac/!svn/ver/8/jtrac/src/main/java/info/jtrac/domain/UserSpaceRole.java
+END
+State.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/domain/State.java
+END

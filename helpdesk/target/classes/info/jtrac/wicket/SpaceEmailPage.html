@@ -1,0 +1,52 @@
+<html>
+<head>
+
+<style type="text/css">
+th {
+	text-align: left;
+	vertical-align: top;
+}
+
+td {
+	vertical-align: top;
+}
+</style>
+</head>
+
+<body>
+	<wicket:extend>
+		<fieldset>
+			<legend>
+				<b><span wicket:id="label"></span></b>
+			</legend>
+			<form wicket:id="form">
+				<table class="jtrac" width="100%">
+					<tr>
+						<th align="left"><wicket:message
+								key="space_email.fullEmailAddress" /></th>
+						<td><input wicket:id="fullEmail" type="text" /></td>
+						<th align="left"><wicket:message key="space_email.username" /></th>
+						<td><input wicket:id="username" type="text" /></td>
+						<th align="left"><wicket:message key="space_email.password" /></th>
+						<td><input wicket:id="password" type="password" /></td>
+					</tr>
+					<tr>
+						<th align="left"><wicket:message key="space_email.domain" /></th>
+						<td><input wicket:id="domain" type="text" /></td>
+						<th align="left"><wicket:message key="space_email.port" /></th>
+						<td><input wicket:id="port" type="text" /></td>
+					</tr>
+					<tr>
+						<th align="left"><wicket:message key="space_email.assignTo" /></th>
+					</tr>
+					<tr>
+						<td><span wicket:id="users"></span></td>
+						<td colspan="5" align="right"><input type="submit"
+							wicket:message="value:submit" /></td>
+					</tr>
+				</table>
+			</form>
+		</fieldset>
+	</wicket:extend>
+</body>
+</html>

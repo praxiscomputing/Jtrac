@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/hibernate
+END
+SchemaHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jtrac/!svn/ver/19/jtrac/src/main/java/info/jtrac/hibernate/SchemaHelper.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/hibernate/package.html
+END
+HibernateJtracDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/hibernate/HibernateJtracDao.java
+END

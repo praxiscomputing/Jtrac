@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <wicket:extend>
+            <div class="heading">
+                <wicket:message key="space_list.spaceList"/>
+                <wicket:enclosure>
+                    [ <a href="#" wicket:id="create"><wicket:message key="space_list.createNewSpace"/></a> ]
+                </wicket:enclosure>
+            </div>            
+            <table class="jtrac">
+                <tr>                    
+                    <th><wicket:message key="space_list.name"/></th>                    
+                    <th><wicket:message key="space_list.key"/></th>
+                    <th><wicket:message key="space_list.description"/></th>
+                    <th><wicket:message key="space_list.edit"/></th>
+                    <th><wicket:message key="space_list.users"/></th>
+                    <th><wicket:message key="space_list.emails"/></th>
+                </tr>            
+                <tr wicket:id="spaces">
+                    <td wicket:id="name"></td>
+                    <td wicket:id="prefixCode"></td>                    
+                    <td wicket:id="description"></td>
+                    <td wicket:id="edit" align="center">
+                        <a href="#" wicket:message="title:edit"><img src="resources/edit.gif"/></a>                        
+                    </td>                    
+                    <td wicket:id="allocate" align="center"><a href="#"><img src="resources/users.gif"/></a></td>
+                    <td wicket:id="email" align="center"><a href="#"><img src="resources/email.gif"/></a></td>
+                </tr>                
+            </table>
+        </wicket:extend>
+        Some icons obtained from <a href="www.IconDrawer.com">Icon Drawer</a>.
+    </body>
+</html>

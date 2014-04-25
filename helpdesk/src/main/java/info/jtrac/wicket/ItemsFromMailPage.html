@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <wicket:extend> 
+        	<table  wicket:id="table" class="hovertable" width="100%">    
+        		<tr>
+        			<th>Name</th>
+        			<th>From Email</th>
+        			<th>Title</th>
+        			<th>Summary</th>
+        			<th>Create Item From This</th>
+        		</tr>
+        		<tr wicket:id="emails">
+        			<td wicket:id="name"></td>
+        			<td wicket:id="from"></td>
+        			<td wicket:id="title"></td>
+        			<td wicket:id="summary"></td>
+        			<td><a wicket:id="createItem" title="Create Item" class="menu_items"><img src="resources/new.gif"/></a></td>
+        			<td wicket:id="status"></td>
+        		</tr>
+        	</table>
+        </wicket:extend>
+    </body>
+</html>

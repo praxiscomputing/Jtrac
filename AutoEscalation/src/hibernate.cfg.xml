@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<!--      <session-factory  name="sessionFactory"> -->
+     <session-factory>
+        <property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.url">jdbc:jtds:sqlserver://server/db</property>
+        <property name="hibernate.connection.username">username</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Config" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Users" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.SpaceUserLevel" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.UserSpaceRoles" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZReports" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ItemTags" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZSeverities" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZLevels" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZCategories" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.History" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZReasonOutstanding" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZEscalationLogs" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Items" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Sysdiagrams" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Spaces" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Attachments" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZServerSettings" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ItemItems" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZSpaceEmail" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Tags" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ItemUsers" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.ZSpaceSeverityPeriod" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.Metadata" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.LastHistoryRecordPerItem" />
+        <mapping class="za.co.praxis.helpdesk.escalation.domain.SpaceSequence" />
+        
+    </session-factory>
+</hibernate-configuration>

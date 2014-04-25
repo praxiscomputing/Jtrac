@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/jtrac/!svn/ver/6/jtrac/src/main/java/info/jtrac/config
+END
+ProviderManagerFactoryBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jtrac/!svn/ver/6/jtrac/src/main/java/info/jtrac/config/ProviderManagerFactoryBean.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/config/package.html
+END
+JtracConfigurer.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/config/JtracConfigurer.java
+END
+DataSourceFactoryBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jtrac/!svn/ver/19/jtrac/src/main/java/info/jtrac/config/DataSourceFactoryBean.java
+END

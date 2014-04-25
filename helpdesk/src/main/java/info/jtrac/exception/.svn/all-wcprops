@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jtrac/!svn/ver/9/jtrac/src/main/java/info/jtrac/exception
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/exception/package.html
+END
+SearchQueryParseException.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jtrac/!svn/ver/9/jtrac/src/main/java/info/jtrac/exception/SearchQueryParseException.java
+END
+InvalidRefIdException.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jtrac/!svn/ver/9/jtrac/src/main/java/info/jtrac/exception/InvalidRefIdException.java
+END
+JtracSecurityException.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jtrac/!svn/ver/9/jtrac/src/main/java/info/jtrac/exception/JtracSecurityException.java
+END

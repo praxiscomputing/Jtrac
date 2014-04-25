@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- application context / root Spring IoC container config for JTrac -->
+
+<beans>
+    <!-- custom Configurer that extends the spring PropertyPlaceholderConfigurer -->
+    <bean class="info.jtrac.config.JtracConfigurer"/>
+    
+    <!-- this Acegi helper finds its way into our root Spring context 
+         because JtracImpl depends on it -->
+    <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.Md5PasswordEncoder"/>
+    
+    <!-- i18n message source -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+       <property name="basename" value="messages"/>
+    </bean>
+    
+    <!-- the business service tier / facade is behind an AOP interceptor (see "target" property)
+         only the update operations require transactions across multiple dao update operations -->
+    <bean id="jtrac" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="info.jtrac.JtracImpl" init-method="init">
+                <property name="dao" ref="dao"/>
+                <property name="passwordEncoder" ref="passwordEncoder"/>
+                <property name="indexer" ref="indexer"/>
+                <property name="indexSearcher" ref="indexSearcher"/>
+                <property name="messageSource" ref="messageSource"/>
+                <property name="localeList" value="${jtrac.locales}"/>
+                <property name="releaseVersion" value="${jtrac.version}"/>
+                <property name="releaseTimestamp" value="${jtrac.timestamp}"/>
+                <property name="jtracHome" value="${jtrac.home}"/>
+                <property name="smsSender" ref="smsSender"/>
+            </bean>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="store*">PROPAGATION_REQUIRED</prop>
+                <prop key="update*">PROPAGATION_REQUIRED</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="bulkUpdate*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_SUPPORTS,readOnly</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- custom factory bean that uses spring single connection data source if embedded
+         HSQLDB is being used, else Apache DBCP with connection pooling -->
+    <bean id="dataSource" class="info.jtrac.config.DataSourceFactoryBean">
+        <property name="driverClassName" value="${database.driver}"/>
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="validationQuery" value="${database.validationQuery}"/>
+        <property name="dataSourceJndiName" value="${database.datasource.jndiname}"/>
+    </bean>
+    <!-- 
+    	DEFAULT TO MYSQL 
+     -->
+     <bean id="mysqlDataSource" class="info.jtrac.config.DataSourceFactoryBean">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3307/jtrac"/>
+        <property name="username" value="root"/>
+        <property name="password" value="P@ssw0rd"/>
+        <property name="validationQuery" value="use jtrac"/>
+        <!--property name="dataSourceJndiName" value="${database.datasource.jndiname}"/-->
+    </bean>
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="mysqlDataSource"/>
+        <property name="mappingResources" value="jtrac.hbm.xml"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <!--prop key="hibernate.hbm2ddl.auto">create</prop-->
+            </props>
+        </property>
+        <property name="eventListeners">
+            <map>
+                <entry key="merge">
+                    <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    
+    <!-- Hibernate DAO implementation.  Transactions (AOP) have been applied at the service layer not here -->
+    <bean id="dao" class="info.jtrac.hibernate.HibernateJtracDao" init-method="createSchema">
+        <property name="hibernateTemplate">
+            <bean class="org.springframework.orm.hibernate3.HibernateTemplate">
+                <property name="sessionFactory" ref="sessionFactory"/>
+                <property name="flushMode">
+                    <bean id="org.springframework.orm.hibernate3.HibernateAccessor.FLUSH_COMMIT"
+                        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
+                </property>
+            </bean>
+        </property>
+        <!-- <property name="sessionFactory" ref="sessionFactory"/> -->
+        <property name="schemaHelper">
+            <bean class="info.jtrac.hibernate.SchemaHelper">
+                <property name="mappingResources" value="jtrac.hbm.xml"/>
+                <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3307/jtrac"/>
+                <property name="username" value="root"/>
+                <property name="password" value="P@ssw0rd"/>
+                <property name="hibernateDialect" value="org.hibernate.dialect.MySQLDialect"/>
+                <!--property name="dataSourceJndiName" value="${database.datasource.jndiname}"/-->
+            </bean>
+        </property>
+    </bean>
+    <!-- 
+    	SMS Sender Impl
+     -->
+     <bean id="smsSender" class="info.jtrac.sms.impl.bulksms.BulkSMSSender">
+     	<property name="password"   value="praxissms"/>
+     	<property name="username"   value="praxissms"/>
+     	<property name="bulksmsUrl" value="http://bulksms.2way.co.za:5567/eapi/submission/send_sms/2/2.0"/>
+     </bean>
+     
+     <bean id="clicktelSMSSender" class="info.jtrac.sms.impl.clicktel.ClickTelSMSSender">
+     	<property name="username" value="test" />
+     	<property name="password" value="test" />
+		<property name="api_id" value="id" />     
+     </bean>
+</beans>

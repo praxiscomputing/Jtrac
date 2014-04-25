@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/util
+END
+ItemUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/util/ItemUtils.java
+END
+AttachmentUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/util/AttachmentUtils.java
+END
+WebUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/util/WebUtils.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/util/package.html
+END
+ExcelUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/util/ExcelUtils.java
+END
+XmlUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/util/XmlUtils.java
+END
+ValidationUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/util/ValidationUtils.java
+END
+UserUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/util/UserUtils.java
+END
+SvnUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/10/jtrac/src/main/java/info/jtrac/util/SvnUtils.java
+END
+DateUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jtrac/!svn/ver/2/jtrac/src/main/java/info/jtrac/util/DateUtils.java
+END

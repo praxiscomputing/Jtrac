@@ -1,0 +1,44 @@
+<html>
+<body>
+	<wicket:extend>
+		<form wicket:id="form">
+			<table>
+				<tr>
+					<td align="left">
+						<table>
+							<tr>
+								<th wicket:id="headings" align="center">
+									<label wicket:id="heading"></label>
+								</th>
+							</tr>
+							<tr wicket:id="listview">
+								<td><input type="text" wicket:id="category" /></td>
+								<td><input type="checkbox" wicket:id="alert_escalate_yn" /></td>
+								<td colspan="2"><a wicket:id="edit"><img src="resources/edit.gif" alt="Edit" /></a></td>
+								<td><a wicket:id="delete" href="#"><img src="resources/delete.gif" alt="Delete" /></a></td>
+							</tr>				
+						</table>
+					</td>
+					<td align="right" valign="middle" style="color: red; text-align: justify;">
+						<b><wicket:message key="category_manage_form.warning" /></b>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td><i><wicket:message key="category_manage_form.newMessage" /></i></td>
+				</tr>
+				<tr>
+					<td><b><wicket:message key="category_manage_form.newCategoryName" /></b></td>
+					<td align="left"><b><wicket:message key="category_manage_form.newCategoryAlertEscalate" /></b></td>
+				</tr>
+				<tr>
+					<td><input type="text" wicket:id="newCategory" /></td>
+					<td><input type="checkbox" wicket:id="new_alert_escalate_yn" /></td>
+					<td><input type="submit" wicket:message="value:submit" /></td>
+				</tr>
+			</table>
+		</form>
+	</wicket:extend>
+</body>
+</html>

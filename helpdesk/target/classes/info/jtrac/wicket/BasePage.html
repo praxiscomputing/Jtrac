@@ -1,0 +1,150 @@
+<!-- DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Praxis Helpdesk</title>
+<link rel="stylesheet" type="text/css" href="resources/jtrac.css" />
+<link rel="stylesheet" type="text/css" href="resources/table.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/jquery.demo_table.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/jquery.dataTables_themeroller.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<script type="text/javascript"
+	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	
+<script type="text/javascript"
+	src="resources/js/birt/report.js"></script>
+	
+<!-- <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
+<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+ -->
+<script type="text/javascript"
+	src="resources/js/datatable/jquery.dataTables.js"></script>
+
+
+<script type="text/javascript">
+	 /* $(function() {
+		$("#datepicker").datepicker();
+	}); */ 
+
+	$(document).ready(function() {
+		$('#dataTable').dataTable({
+			"bPaginate" : false,
+			"sPaginationType" : "full_numbers"
+		}).columnFilter();
+	});
+
+	$(function() {
+		$("input:text").addClass("ui-widget ui-widget-content ui-corner-all");
+		$("input:password").addClass(
+				"ui-widget ui-widget-content ui-corner-all");
+	});
+
+	$(function() {
+		$("#slider").slider({
+			value : 0,
+			min : 0,
+			max : 31,
+			step : 1,
+			slide : function(event, ui) {
+				$("#period").val(ui.value + " day(s)");
+			}
+		});
+		$("#period").val("$" + $("#slider").slider("value"));
+	});
+
+	$(function() {
+		$("input[type=submit], button").button({
+			icons : {
+				primary : "ui-icon-check"
+			}
+		});
+	});
+</script>
+
+<script type="text/javascript"
+	src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<script type="text/javascript">
+	//<![CDATA[
+	bkLib.onDomLoaded(function() {
+		//nicEditors.allTextAreas();
+		//new nicEditor().panelInstance('itemFormDetail');
+
+		try {
+			new nicEditor().panelInstance('itemFormDetail');
+		} catch (err) {
+			//Handle errors here
+		}
+
+		try {
+			new nicEditor().panelInstance('itemViewComment');
+		} catch (err) {
+			//Handle errors here
+		}
+
+		try {
+			new nicEditor().panelInstance('itemFormReason');
+		} catch (err) {
+			//Handle errors here
+		}
+		//new nicEditor().panelInstance('itemViewComment');
+		//new nicEditor().panelInstance('itemFormReason');
+
+		try {
+			new nicEditor({
+				buttonList : []
+			}).panelInstance('itemViewDetails');
+		} catch (err) {
+			//Handle errors here
+		}
+
+	});
+	//]]>
+</script>
+
+
+</head>
+<body>
+
+	<table width="80%" align="center">
+		<tr>
+			<td align="left"><img src="resources/Praxis_Logo.PNG"
+				alt="Praxis" /></td>
+			<td align="center"></td>
+			<td align="right">
+				<h4>Praxis - Online Support System</h4> <br />
+				<div style="clear: both">
+					<br />
+					<div style="clear: both">
+						<br />
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr bgcolor="#8B0000">
+			<td align="center" colspan="3" style="color: #FFFFFF"><span
+				wicket:id="header"></span><br /></td>
+		</tr>
+		<tr>
+			<div style="clear: both">
+				<br />
+			</div>
+		</tr>
+		<tr style="width: 100%">
+			<td colspan="3" align="left"><wicket:child /></td>
+		</tr>
+		<tr
+			style="background-color: #8B0000; position: absolute; width: 80%; text-align: center; color: #FFFFFF;">
+			<td align="center" colspan="3"><b
+				style="width: 100%; text-align: center;">.:: Powered by Praxis
+					::.</b></td>
+		</tr>
+	</table>
+</body>
+</html>

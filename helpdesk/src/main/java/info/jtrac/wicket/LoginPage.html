@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title wicket:id="title"></title>
+<link rel="stylesheet" type="text/css" href="resources/jtrac.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript">
+
+$(function() {
+    $( "input[type=submit], button" )
+      .button({
+	  	icons: {
+	    	primary: "ui-icon-check"
+	    }
+      });
+  });
+  
+$(function() {
+    $( "input:text" ).addClass("ui-widget ui-widget-content ui-corner-all");
+    $( "input:password" ).addClass("ui-widget ui-widget-content ui-corner-all");
+});
+
+</script>
+
+
+</head>
+<body>
+	<table width="80%" align="center">
+		<tr>
+			<td align="left"><img src="resources/Praxis_Logo.PNG"
+				alt="Praxis Helpdesk" /></td>
+			<td align="right">
+				<h4>Praxis - Online Support System</h4>
+				<br />
+				<div style="clear: both">
+					<br />
+				</div>
+			</td>
+			<!--<td align="right"><img src="resources/logo_2.jpg"
+				alt="Praxis" /></td>-->
+		</tr>
+		<tr bgcolor=" #8B0000">
+		
+			<td colspan="3" align="left"><a href="app" class="login-page-nav-header"><wicket:message
+						key="login.home" /></a></td>
+			<td align="right"></td>
+		</tr>
+	</table>
+	<div class="centre">
+		<form wicket:id="form">
+			<div wicket:id="hide" style="margin-top: 3.2em"></div>
+			<div wicket:id="feedback"></div>
+			<table align="center">
+				<tr align="left">
+					<td ><!--wicket:message key="login.loginName" /-->Username</td>
+					<td ><input wicket:id="loginName" size="35" title="Login Name" type="text"/></td>
+				</tr>
+				<tr>
+					<td ><wicket:message key="login.password" /></td>
+					<td><input type="password" wicket:id="password" size="35" title="Password"/></td>	
+				</tr>
+				<tr>
+					<td />
+					<td align="left">
+					<input type="submit" 	wicket:message="value:login.submit" />
+					<wicket:message			key="login.rememberMe" /> 
+					<input type="checkbox"	wicket:id="rememberMe" /></td>
+				</tr>
+				
+			</table>
+		</form>
+	</div>
+	<table align="center" width="80%" style="text-align: center;">
+		<tr style="background-color:  #8B0000; bottom:0; position: absolute; width: 100%; text-align: center;">
+			<td style="text-align: center; color: white;">.:: Powered by Praxis ::.</td>
+		</tr>
+	</table>
+</body>
+
+</html>
