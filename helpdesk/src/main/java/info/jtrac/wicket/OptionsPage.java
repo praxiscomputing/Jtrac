@@ -17,6 +17,8 @@
 package info.jtrac.wicket;
 
 import info.jtrac.domain.User;
+
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 
 /**
@@ -95,6 +97,8 @@ public class OptionsPage extends BasePage {
             }            
         }.setVisible(isSuperUser));                 
         
+        ExternalLink icon_source_link = new ExternalLink("icon_source_link", "http://www.IconDrawer.com", "Icon Drawer");
+        add(icon_source_link);
     }
     
 }

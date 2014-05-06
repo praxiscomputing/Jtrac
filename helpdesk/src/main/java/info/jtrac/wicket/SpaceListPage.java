@@ -103,11 +103,8 @@ public class SpaceListPage extends BasePage {
         
         add(listView);
         
-        WebMarkupContainer icon_source = new WebMarkupContainer("icon_source");
-        ExternalLink icon_source_link = new ExternalLink("icon_source_link", new Model());
-        icon_source.add(icon_source_link);
-        
-        add(icon_source);
+        ExternalLink icon_source_link = new ExternalLink("icon_source_link", "http://www.IconDrawer.com", "Icon Drawer");
+        add(icon_source_link);
         
     }
     
