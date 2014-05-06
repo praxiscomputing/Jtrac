@@ -328,9 +328,10 @@ public class ColumnHeading implements Serializable {
                             Fragment fragment = new Fragment("fragParent", "dateField", container);                        
                             YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);                                                
                             fragment.add(calendar);
+                            
                             if(filterCriteria.getExpression() == BETWEEN) {
                                 YuiCalendar calendar2 = new YuiCalendar("value2", new PropertyModel(filterCriteria, "value2"), false);                                                
-                                fragment.add(calendar2);                            
+                                fragment.add(calendar2);
                             } else {
                                 fragment.add(new WebMarkupContainer("value2").setVisible(false));
                             }     

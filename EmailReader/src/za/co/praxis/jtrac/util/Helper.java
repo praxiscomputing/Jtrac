@@ -13,7 +13,9 @@ import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -493,28 +495,33 @@ public class Helper {
 
 	public static Map<String, String> getApplicationProperties() throws IOException{
 
-	    String versionString = null;
-
+		Map<String, String> connectionDetails = new HashMap<String, String>();
+		
 	    //to load application's properties, we use this class
-	    Properties mainProperties = new Properties();
+	    Properties properties = new Properties();
 
 	    FileInputStream file;
 
 	    //the base folder is ./, the root of the main.properties file  
-	    String path = "./main.properties";
+	    String path = "./jtrac-mail.properties";
 
 	    //load the file handle for main.properties
 	    file = new FileInputStream(path);
 
 	    //load all the properties from this file
-	    mainProperties.load(file);
+	    properties.load(file);
 
 	    //we have loaded the properties, so close the file handle
 	    file.close();
 
-	    //retrieve the property we are intrested, the app.version
-	    versionString = mainProperties.getProperty("app.version");
+	    //retrieve the properties we are intrested in	    
+	    connectionDetails.put("database.driver", properties.getProperty("database.driver"));
+	    connectionDetails.put("database.url", properties.getProperty("database.url"));
+	    connectionDetails.put("database.username", properties.getProperty("database.username"));
+	    connectionDetails.put("database.password", properties.getProperty("database.password"));
+	    connectionDetails.put("hibernate.dialect", properties.getProperty("hibernate.dialect"));
+	    connectionDetails.put("hibernate.show_sql", properties.getProperty("hibernate.show_sql"));
 
-	    return versionString;
+	    return connectionDetails;
 	}
 }

@@ -1,0 +1,2 @@
+May 06, 2014 8:59:10 AM za.co.praxis.jtrac.util.Helper initializeLogger
+INFO: Logger initialized
