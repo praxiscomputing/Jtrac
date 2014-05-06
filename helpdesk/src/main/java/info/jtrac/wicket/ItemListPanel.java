@@ -325,7 +325,12 @@ public class ItemListPanel extends BasePanel {
                                     value = new Model(DateUtils.formatTimeStamp(item.getTimeStamp()));
                                     break;
                                 case DUE_DATE:
-                                	value = new Model(DateUtils.formatTimeStamp(((Item)item).getDueDate()));
+                                	if(showHistory) {
+                                		value = new Model(DateUtils.formatTimeStamp(item.getParent().getDueDate()));
+                                	} else {
+                                		value = new Model(DateUtils.formatTimeStamp(((Item)item).getDueDate()));
+                                	}
+                                	
                                     break;
                                 case SPACE:
                                     if(showHistory) {

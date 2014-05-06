@@ -636,10 +636,12 @@ public class ColumnHeading implements Serializable {
                         Fragment getFilterUiFragment(MarkupContainer container, User user, Space space, Jtrac jtrac) {
                             Fragment fragment = new Fragment("fragParent", "dateField", container);                    
                             YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);
+                            fragment.add(calendar);
+                            
                             /*DateTextField calendar = new DateTextField("value", new PropertyModel(filterCriteria, "value"));
                             DatePicker datePicker = new DatePicker();
                             calendar.add(datePicker);*/
-                            fragment.add(calendar);
+                            
                             if(filterCriteria.getExpression() == BETWEEN) {
                             	/*DateTextField calendar2 = new DateTextField("value2", new PropertyModel(filterCriteria, "value2"));
                                 DatePicker datePicker2 = new DatePicker();
