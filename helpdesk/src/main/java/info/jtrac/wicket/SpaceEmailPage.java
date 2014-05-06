@@ -3,7 +3,10 @@ package info.jtrac.wicket;
 import info.jtrac.domain.Space;
 import info.jtrac.domain.User;
 import info.jtrac.domain.ZSpaceEmail;
+import info.jtrac.util.EncryptDecryptHelper;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,8 +116,20 @@ public class SpaceEmailPage extends BasePage {
 			List<User> user = getJtrac().findUsers(Long.valueOf(spaceUsers.getModelValue()));
 			if(!user.isEmpty() && user != null)
 				spaceEmail.setUser(user.get(0));
+			
+			try {
+				spaceEmail.setPassword(EncryptDecryptHelper.encrypt(password.getValue()));
+			} catch (UnsupportedEncodingException e) {
+				logger.error(e.getMessage());
+				throw new RuntimeException(e);
+			} catch (GeneralSecurityException e) {
+				logger.error(e.getMessage());
+				throw new RuntimeException(e);
+			}
 				
 			getJtrac().storeSpaceEmail(spaceEmail);
+			
+			setResponsePage(SpaceListPage.class);
 		}
 
 		@Override

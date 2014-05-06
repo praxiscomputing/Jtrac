@@ -19,11 +19,14 @@ package info.jtrac.wicket;
 import info.jtrac.domain.Space;
 import info.jtrac.domain.User;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 /**
@@ -99,6 +102,12 @@ public class SpaceListPage extends BasePage {
         };
         
         add(listView);
+        
+        WebMarkupContainer icon_source = new WebMarkupContainer("icon_source");
+        ExternalLink icon_source_link = new ExternalLink("icon_source_link", new Model());
+        icon_source.add(icon_source_link);
+        
+        add(icon_source);
         
     }
     

@@ -18,7 +18,9 @@ td {
 			<form wicket:id="form">
 				<table>
 					<tr>
-						<td align="center">
+						<td style="vertical-align: top; margin-right: 5dp;"><span
+										wicket:id="group"></span></td>
+						<!-- <td align="center">
 							<table>
 								<tr>
 									<th><wicket:message key="report_list.report" /></th>
@@ -58,7 +60,11 @@ td {
 										wicket:message="value:submit" /></td>
 								</tr>
 							</table>
-						</td>
+						</td> -->
+					</tr>
+					<tr>
+						<td align="left" style="vertical-align: bottom; text-align: right;"><input type="submit"
+										wicket:message="value:submit" /></td>
 					</tr>
 				</table>
 			</form>

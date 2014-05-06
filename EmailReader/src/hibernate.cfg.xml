@@ -5,9 +5,9 @@
  <session-factory>
   <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
   <property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-  <property name="hibernate.connection.password">password</property>
-  <property name="hibernate.connection.url">jdbc:jtds:sqlserver://server/db</property>
-  <property name="hibernate.connection.username">username</property>
+  <property name="hibernate.connection.password">Mycquillisf9</property>
+  <property name="hibernate.connection.url">jdbc:jtds:sqlserver://sql2008vm:1433/jtrac_test_db</property>
+  <property name="hibernate.connection.username">prxusr</property>
   <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
   <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
   <property name="hibernate.search.autoregister_listeners">false</property>

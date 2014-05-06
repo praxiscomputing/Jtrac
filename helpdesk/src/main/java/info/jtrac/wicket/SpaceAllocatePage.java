@@ -254,7 +254,9 @@ public class SpaceAllocatePage extends BasePage {
             levels = getJtrac().findAllLevels();
             
             
-			levelChoice = new DropDownChoice("level", new Model(), levels ,new IChoiceRenderer() {
+            
+            
+			levelChoice = new DropDownChoice("level", new Model(levels.get(0)), levels ,new IChoiceRenderer() {
 				
 				public String getIdValue(Object object, int index) {
 					return ((Level)object).getId() + "";

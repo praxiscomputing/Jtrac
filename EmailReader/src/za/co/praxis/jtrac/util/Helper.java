@@ -1,21 +1,27 @@
 package za.co.praxis.jtrac.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
@@ -257,6 +263,81 @@ public class Helper {
 		query.executeUpdate();
 	}
 
+	public void insertItem(Items item, List<DataSource> attachments) throws IOException {
+
+		Items saveditem = (Items) getCurrentSession().merge(item);
+		updateSpaceSequenceNumber(item.getSpaces());
+
+		History history = new History();
+		history.setItems(saveditem);
+		history.setTimeStamp(new Date());
+		history.setUsersByAssignedTo(item.getUsersByAssignedTo());
+		history.setUsersByLoggedBy(item.getUsersByLoggedBy());
+		history.setDetail(item.getDetail());
+		history.setSummary(item.getSummary());
+		history.setStatus(State.OPEN);
+		history.setZSpaceSeverityPeriod(item.getZSpaceSeverityPeriod());
+		history.setVersion(0);
+
+		for(DataSource dataSource : attachments) {
+			
+			InputStream inputStream = dataSource.getInputStream();
+			OutputStream outputStream = null;
+			
+			String unzippedDirectory = getConfigurationByParam("attachments_zip").get(0).getValue();
+			String lastChar = unzippedDirectory.substring(unzippedDirectory.length() - 1);
+			
+			if(lastChar != "/" && lastChar != "\\") {
+				unzippedDirectory = unzippedDirectory + "\\";
+			}
+			
+			outputStream = new FileOutputStream(unzippedDirectory + dataSource.getName());
+			
+			int read = 0;
+			byte[] bytes = new byte[1024];
+	 
+			while ((read = inputStream.read(bytes)) != -1) {
+				outputStream.write(bytes, 0, read);
+			}
+			
+			String spacePrefix = history.getItems().getSpaces().getPrefixCode();
+			String itemSequenceNum = history.getItems().getSequenceNum().toString();
+			
+			Attachments savedAttachment = new Attachments();
+			savedAttachment = createNewZip(spacePrefix + "-" +  itemSequenceNum);
+			history.setAttachments(savedAttachment);
+			
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+					logger.info(e.getMessage());
+				}
+			}
+			if (outputStream != null) {
+				try {
+					// outputStream.flush();
+					outputStream.close();
+				} catch (IOException e) {
+					logger.info(e.getMessage());
+				}
+	 
+			}
+		}
+		
+		if(attachments.isEmpty() || attachments == null) {
+			history.setAttachments(null);
+		}
+		
+		
+		getCurrentSession().save(history);
+		getCurrentSession().getTransaction().commit();
+		getCurrentSession().close();
+		
+		establishConnection();
+		
+	}
+	
 	public void insertItem(Items item, Attachments attachment, MimeBodyPart attachmentPart) throws IOException {
 
 		Items saveditem = (Items) getCurrentSession().merge(item);
@@ -410,132 +491,30 @@ public class Helper {
 		return b.toByteArray();
 	}
 
-	/*
-	 * public Connection getConnection() throws SQLException,
-	 * InstantiationException, IllegalAccessException, ClassNotFoundException {
-	 * 
-	 * Connection conn = null;
-	 * 
-	 * // Properties of SQL server Properties connectionProps = new
-	 * Properties(); try {
-	 * Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-	 * 
-	 * connectionProps.load(Helper.class.getClassLoader()
-	 * .getResourceAsStream("db.properties")); } catch (IOException ex) { throw
-	 * new RuntimeException(ex); }
-	 * 
-	 * connectionProps .put("username",
-	 * connectionProps.getProperty("username")); connectionProps
-	 * .put("password", connectionProps.getProperty("password")); //
-	 * connectionProps.put("url", // connectionProps.getProperty(
-	 * "jdbc:jtds:sqlserver://sql2008vm:1433/jtrac_test_db"));
-	 * 
-	 * String url = "jdbc:jtds:sqlserver://sql2008vm:1433/jtrac_test_db;user=" +
-	 * connectionProps.getProperty("username") + ";password=" +
-	 * connectionProps.getProperty("password");
-	 * 
-	 * conn = DriverManager.getConnection(url);
-	 * 
-	 * System.out.println("Connected to database"); return conn; }
-	 * 
-	 * public void saveItem(Object object) {
-	 * 
-	 * try {
-	 * 
-	 * Items item = new Items();
-	 * 
-	 * item = (Items) object; PreparedStatement ps = null; String sql = null;
-	 * 
-	 * ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	 * ObjectOutputStream oos = new ObjectOutputStream(bos);
-	 * 
-	 * oos.writeObject(object); oos.flush(); oos.close(); bos.close();
-	 * 
-	 * byte[] data = bos.toByteArray();
-	 * 
-	 * sql =
-	 * "insert into items(version,space_id,sequence_num,type,due_date, date_added, logged_by, assigned_to, summary, detail, originator, originator_contact, status, category) "
-	 * + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; ps = con.prepareStatement(sql);
-	 * ps.setInt(1, item.getVersion()); ps.setObject(2, item.getSpaces()); //
-	 * ps.setInt(3, item.getSequenceNum()); ps.setInt(4, item.getType()); //
-	 * ps.setDate(5, item.getDueDate());
-	 * 
-	 * ps.setObject(1, data); ps.executeUpdate();
-	 * 
-	 * } catch (Exception e) { throw new RuntimeException(e); }
-	 * 
-	 * }
-	 * 
-	 * public Spaces findNISSpace() throws SQLException {
-	 * 
-	 * List<Object> objects = new ArrayList<Object>(); Spaces space = new
-	 * Spaces();
-	 * 
-	 * Statement stmt = null; String query = "select * " +
-	 * "from spaces where prefix_code = 'DEV'";
-	 * 
-	 * try { stmt = con.createStatement(); ResultSet rs =
-	 * stmt.executeQuery(query); while (rs.next()) {
-	 * 
-	 * // space.setId(rs.getLong(1)); space.setVersion(rs.getInt("version"));
-	 * space.setMetadata(null); space.setType(rs.getInt("type"));
-	 * space.setPrefixCode(rs.getString("prefix_code"));
-	 * space.setName(rs.getString("name")); //
-	 * space.setDescription(rs.getString("description"));
-	 * space.setGuestAllowed(rs.getByte("guest_allowed"));
-	 * 
-	 * System.out.println(rs.getString(5));
-	 * 
-	 * } } catch (SQLException e) { throw new RuntimeException(e); } finally {
-	 * if (stmt != null) { stmt.close(); } }
-	 * 
-	 * return space;
-	 * 
-	 * }
-	 * 
-	 * public ZSpaceSeverityPeriod findSpaceSeverityPeriodBySpace(Spaces space)
-	 * throws SQLException {
-	 * 
-	 * ZSpaceSeverityPeriod spaceSeverityPeriod = new ZSpaceSeverityPeriod();
-	 * Statement stmt = null; String query = "select * " +
-	 * "from z_space_severity_period where space_id = " + space.getId();
-	 * 
-	 * try { stmt = con.createStatement(); ResultSet rs =
-	 * stmt.executeQuery(query); while (rs.next()) {
-	 * 
-	 * spaceSeverityPeriod.setId(rs.getInt(1));
-	 * spaceSeverityPeriod.setZSeverities(null);
-	 * spaceSeverityPeriod.setSpaces(space);
-	 * spaceSeverityPeriod.setPeriod(rs.getInt(4));
-	 * System.out.println(rs.getString(2));
-	 * 
-	 * } } catch (SQLException e) { throw new RuntimeException(e); } finally {
-	 * if (stmt != null) { stmt.close(); } }
-	 * 
-	 * return spaceSeverityPeriod; }
-	 * 
-	 * public Users findUserByEmailAddress(String email) throws SQLException {
-	 * 
-	 * Users user = new Users();
-	 * 
-	 * PreparedStatement stmt = null; String query = "select * " +
-	 * "from users where email = ?";
-	 * 
-	 * try { stmt = con.prepareStatement(query); stmt.setString(1, email);
-	 * ResultSet rs = stmt.executeQuery(); while (rs.next()) {
-	 * 
-	 * // user.setId(rs.getLong(1)); user.setType(rs.getInt(2));
-	 * user.setLoginName(rs.getString(4)); user.setName(rs.getString(5));
-	 * 
-	 * user.setCellphone(rs.getString(6));
-	 * user.setUseCellPhoneNumber(rs.getByte(7)); user.setEmail(email);
-	 * user.setLocale(rs.getString(10)); user.setLocked(rs.getByte(11));
-	 * 
-	 * System.out.println(rs.getString(2));
-	 * 
-	 * } } catch (SQLException e) { throw new RuntimeException(e); } finally {
-	 * if (stmt != null) { stmt.close(); } }
-	 * 
-	 * return user; }
-	 */
+	public static Map<String, String> getApplicationProperties() throws IOException{
+
+	    String versionString = null;
+
+	    //to load application's properties, we use this class
+	    Properties mainProperties = new Properties();
+
+	    FileInputStream file;
+
+	    //the base folder is ./, the root of the main.properties file  
+	    String path = "./main.properties";
+
+	    //load the file handle for main.properties
+	    file = new FileInputStream(path);
+
+	    //load all the properties from this file
+	    mainProperties.load(file);
+
+	    //we have loaded the properties, so close the file handle
+	    file.close();
+
+	    //retrieve the property we are intrested, the app.version
+	    versionString = mainProperties.getProperty("app.version");
+
+	    return versionString;
+	}
 }

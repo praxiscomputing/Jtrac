@@ -235,7 +235,7 @@ public class ItemFormPage extends BasePage {
                     }
                 };
                 model = new BoundCompoundPropertyModel(itemModel);
-                byte[] decodedDetail = new Base64().encode(item.getDetail().getBytes());
+                //byte[] decodedDetail = new Base64().encode(item.getDetail().getBytes());
                 
                 //item.setDetail(new String(decodedDetail));
                 item.setDetail(item.getDetail());

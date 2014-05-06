@@ -82,12 +82,6 @@ public class OptionsPage extends BasePage {
             }            
         }.setVisible(isSpaceAdmin || isSuperUser));
         
-        add(new Link("reporting") {
-            public void onClick() {
-            	setResponsePage(new ReportPage());
-            }            
-        }.setVisible(isSpaceAdmin || isSuperUser));
-        
         add(new Link("indexes") {
             public void onClick() {
                 setResponsePage(new IndexRebuildPage(false));

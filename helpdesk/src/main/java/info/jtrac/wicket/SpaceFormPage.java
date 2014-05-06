@@ -238,8 +238,8 @@ public class SpaceFormPage extends BasePage {
                 Space temp = getJtrac().loadSpace(copyFrom.getId());
                 space.getMetadata().setXmlString(temp.getMetadata().getXmlString());
             }
-            //setResponsePage(new SpaceFieldListPage(space, null, previous));
-            setResponsePage(new SpacePermissionsPage(space, previous));
+            setResponsePage(new SpaceFieldListPage(space, null, previous));
+            //setResponsePage(new SpacePermissionsPage(space, previous));
             
         }        
     }                

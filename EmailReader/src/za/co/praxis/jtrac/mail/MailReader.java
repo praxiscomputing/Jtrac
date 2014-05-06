@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +40,7 @@ import javax.mail.search.FlagTerm;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.mail.util.MimeMessageParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -55,6 +57,7 @@ import za.co.praxis.jtrac.domain.Users;
 import za.co.praxis.jtrac.domain.ZCategories;
 import za.co.praxis.jtrac.domain.ZSpaceEmail;
 import za.co.praxis.jtrac.domain.ZSpaceSeverityPeriod;
+import za.co.praxis.jtrac.util.EncryptDecryptHelper;
 import za.co.praxis.jtrac.util.Helper;
 
 import com.sun.mail.util.BASE64DecoderStream;
@@ -103,11 +106,9 @@ public class MailReader {
 	 * @param port
 	 * @param userName
 	 * @param password
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws Exception 
 	 */
-	public void processEmails(String host, String port, String userName, String password, Spaces space, Users user, String email) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void processEmails(String host, String port, String userName, String password, Spaces space, Users user, String email) throws Exception {
 		
 		try {
 			// connects to the message store
@@ -121,69 +122,29 @@ public class MailReader {
 			Folder folderInbox = store.getFolder("INBOX");
 			folderInbox.open(Folder.READ_WRITE);
 			FlagTerm ft = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
-           
-			// fetches new messages from server
-			//Message[] arrayMessages = folderInbox.getMessages();
+
 			Message[] arrayMessages = folderInbox.search(ft);
 			
-			System.out.println("**************************** " + arrayMessages.length);
 			 
 			for (int i = 0; i < arrayMessages.length; i++) {
 				
-				//Helper.getCurrentSession().getSessionFactory().openSession();
+				MimeMessageParser message = new MimeMessageParser((MimeMessage) arrayMessages[i]);
+				message.parse();
 				
-				nonBase64Parts = new ArrayList<Object>();
-				emailDetail = "";
-				base64Content = new ArrayList<String>();
-				attachFiles = "";// store attachment file name, separated by comma	
-				emailContent = "";
+				String from = null;
+				String subject = null;
 				
-
-				Message message = arrayMessages[i];
-				//Message message = arrayMessages[arrayMessages.length - 1];
-
-				Address[] fromAddress = message.getFrom();
-				String from = fromAddress[0].toString();
-				String subject = message.getSubject();
-				String contentType = message.getContentType();			
-				
-
-				if (contentType.contains("multipart")) {
-					
-					processMultiPartMessage(message);	
-					
-					for(Object o : nonBase64Parts) {
-						emailContent += getBody(o);	
-					}
-						
-					if(base64Content.size() > 0 && emailContent != null  && !emailContent.equalsIgnoreCase("null") ) {
-						for(int j=0; j<base64Content.size(); j++) 
-						{
-							
-							try {
-								Document doc = Jsoup.parse(emailContent);
-								Element link = doc.select("img").get(j);
-								String src = link.attr("src");
-								//String width = link.attr("width");
-								emailContent = emailContent.replace(src, "data:image/png;base64," + base64Content.get(j));
-							} catch(Exception e) {
-								// App fails silently but logs the exception.. 
-								// This is likely due to not creating new emails by using forwarding
-								logger.info((e.getMessage()));
-							}
-						}
-					}
-				
-					emailDetail = emailContent;
-				
-				} else if (contentType.contains("text/plain") || contentType.contains("text/html")) { //Commen
-					
-					emailDetail += processNonMultiPartMessage(message);
+				try {
+					from = message.getFrom();
+					subject = message.getSubject();
+				} catch (Exception e1) {
+					logger.info(e1.getMessage());
 				}
-						
+				message.getAttachmentList();
+
 				
 				// String manipulation to get separate sender's email address from sender's name
-				String originator = null;
+				String originator = from;
 				try
 				{
 					originator = from.substring(0, from.indexOf('<') - 1);
@@ -220,27 +181,26 @@ public class MailReader {
 					item.setSpaces(space);
 					item.setSequenceNum(spaceSequences.get(0).getNextSeqNum());
 					item.setTimeStamp(new Date());
-					if(!categories.isEmpty() && categories != null) {
-						categories = helper.getAllCategories();
-					}
+					
+					categories = helper.getAllCategories();
 					item.setZCategories(categories.get(0));
 					
 					Calendar cal = Calendar.getInstance();
-					cal.setTime(message.getSentDate());
+					cal.setTime(message.getMimeMessage().getSentDate());
 					cal.add(Calendar.HOUR, spaceSeverityPeriods.get(0).getPeriod());
 					item.setDueDate(cal.getTime());
-					item.setDateAdded(message.getSentDate());
+					item.setDateAdded(message.getMimeMessage().getSentDate());
 					item.setUsersByLoggedBy(users.get(0));
 					item.setUsersByAssignedTo(user);
 					item.setSummary(subject);
-					item.setDetail(emailDetail);
+					item.setDetail(message.getHtmlContent());
 					item.setOriginator(originator);
 					item.setOriginatorContact(originatorContact);
 					item.setZSpaceSeverityPeriod(spaceSeverityPeriods.get(0));
 					item.setStatus(State.OPEN);
 					item.setVersion(0);
 					
-					helper.insertItem(item, attachment, attachmentPart);
+					helper.insertItem(item, message.getAttachmentList());
 					
 					List<Config> configs = new ArrayList<Config>();
 					configs = helper.getAllConfigurations();
@@ -336,12 +296,6 @@ public class MailReader {
 
 					part.saveFile(saveDirectory + File.separator + attachmentFileName);
 					
-					
-				//}
-				//else
-				//{
-					//AllAttachFile.createNewFile();
-				//}
 				
 					if (attachment == null)
 					{
@@ -349,7 +303,6 @@ public class MailReader {
 					}
 					
 					logger.info("Item has attachment(s)");
-					//saveAttachment(part);
 				
 				
 			} else {
@@ -394,19 +347,6 @@ public class MailReader {
 		}
 	}
 
-	/*private void saveAttachment(MimeBodyPart part) throws MessagingException,IOException {
-		
-		// this part is attachment
-		fileName = UUID.randomUUID().toString();
-		String attachmentFileName = fileName + "#" + part.getFileName();
-		
-		attachFiles += attachmentFileName + ", ";
-		
-		attachment.setFileName(attachmentFileName);
-		
-		part.saveFile(saveDirectory + File.separator + attachmentFileName);		
-	}
-*/
 	private void addBase64Content(Object content) throws IOException,
 			UnsupportedEncodingException {
 		BASE64DecoderStream base64DecoderStream = (BASE64DecoderStream) content;
@@ -713,8 +653,17 @@ public class MailReader {
 		} catch (IOException e1) {
 			System.out.println(e1.getMessage());
 		}   
-		logger.addHandler(fh);
+		//logger.addHandler(fh);
 		
+		String sourcePath = MailReader.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		String decodedPath = null;
+		try {
+			decodedPath = URLDecoder.decode(sourcePath, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			System.out.println(e1.getMessage());
+		}
+		
+		System.out.println(decodedPath);
 		
 		logger.info("Obtaining Data from table Space Emails...");
 		try {
@@ -754,9 +703,9 @@ public class MailReader {
 				System.out.println(spaces.get(0).getPrefixCode());
 				System.out.println(user.getName());
 				
-				//receiver.ReadXMail();
-				//receiver.SendXMail();
 				try {
+					password = EncryptDecryptHelper.decrypt(password);
+					
 					receiver.processEmails(host, port, userName, password, spaces.get(0), user, email);
 				} catch(Exception e) {
 					logger.info(e.getMessage());

@@ -52,8 +52,14 @@ public class Config implements Serializable {
         PARAMS.add("locale.default");
         PARAMS.add("session.timeout");
         PARAMS.add("attachment.maxsize");
+        PARAMS.add("jasper.server.url");
+        PARAMS.add("jasper.server.username");
+        PARAMS.add("jasper.server.password");
         PARAMS.add("jtrac.path.birt.engine");
         PARAMS.add("jtrac.path.birt.reports");
+        PARAMS.add("attachments");
+        PARAMS.add("attachments_zip");
+        
     }
     
     public static Set<String> getParams() {

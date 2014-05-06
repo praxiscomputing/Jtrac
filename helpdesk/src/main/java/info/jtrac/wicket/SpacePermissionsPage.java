@@ -176,18 +176,6 @@ public class SpacePermissionsPage extends BasePage {
 			
 			categories = getJtrac().findAllCategories();
 			
-			/*List<String> columnHeadings = new ArrayList<String>();
-			columnHeadings.add("Category");
-			columnHeadings.add("Category Applicable to Space?");
-
-			ListView headings = new ListView("headings", columnHeadings) {
-	            protected void populateItem(ListItem listItem) {
-	                listItem.add(new Label("heading", listItem.getModelObjectAsString()));
-	            }
-	        };
-	        
-	        add(headings);*/
-	        
 	        class CheckBoxModel implements Serializable {
 	        	
 	        	private boolean isChecked;
@@ -224,6 +212,15 @@ public class SpacePermissionsPage extends BasePage {
 				}
 
 	        }
+	        
+	        List<SpaceCategory> spaceCategories = new ArrayList<SpaceCategory>();
+	        spaceCategories = getJtrac().findSpaceCategoriesBySpace(space);
+	        
+	        for(SpaceCategory spaceCategory : spaceCategories) {
+	        	selection.put(spaceCategory.getCategory(), true);
+	        }
+	        
+	        
 	        
 	        add(new ListView("listview", categories) {
 	        	
@@ -338,7 +335,8 @@ public class SpacePermissionsPage extends BasePage {
                                             setResponsePage(new SpacePermissionsPage(space, previous));
                                         }                                          
                                     };
-                                   /* State state = role.getStates().get(stateKeyRow);                                    
+                                            
+                                    State state = role.getStates().get(stateKeyRow);                                    
                                     int mask = state.getFields().get(field.getName());
                                     switch(mask) {
                                         case State.MASK_MANDATORY : fieldButton.add(mandatory); break;
@@ -346,8 +344,9 @@ public class SpacePermissionsPage extends BasePage {
                                         case State.MASK_READONLY : fieldButton.add(readonly); break;
                                         case State.MASK_HIDDEN : fieldButton.add(hidden); break;
                                         default: // should never happen
-                                    }
-                                    listItem.add(fieldButton);       */                          
+                                    } 
+                                    listItem.add(fieldButton);
+                                                         
                                 }                                
                             });                            
                         }                        
@@ -383,14 +382,19 @@ public class SpacePermissionsPage extends BasePage {
 	                }
 	                
 	             // Remove all SpaceCategories and Re-Save them
-	                getJtrac().removeSpaceCategory(space);
+	                int index = 0;
 	                for(Category category : selection.keySet()) {
+	                	
+	                	if(index == 0) {
+	                		getJtrac().removeSpaceCategory(space);
+	                	}
 	                	if(selection.get(category)) {
 	                		SpaceCategory spaceCategory = new SpaceCategory();
 	                		spaceCategory.setCategory(category);
 	                		spaceCategory.setSpace(space);
 		                	getJtrac().storeSpaceCategory(spaceCategory);
 	                	}
+	                	index++;
 	                }
 	                
 	                
