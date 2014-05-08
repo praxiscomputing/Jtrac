@@ -43,6 +43,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
+import com.googlecode.wicket.jquery.ui.form.datepicker.AjaxDatePicker;
+
 /**
  * used to render columns in the search results table
  * and also in the search filter screen
@@ -534,23 +536,26 @@ public class ColumnHeading implements Serializable {
                         }
                         Fragment getFilterUiFragment(MarkupContainer container, User user, Space space, Jtrac jtrac) {
                             Fragment fragment = new Fragment("fragParent", "dateField", container);                    
-                            YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);                    
-                            fragment.add(calendar);
+                            /*YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);                    
+                            fragment.add(calendar);*/
                             
-                            /*DateTextField calendar = new DateTextField("value", new PropertyModel(filterCriteria, "value"));
+                            //AjaxDatePicker calendar = new AjaxDatePicker("value", new PropertyModel(filterCriteria, "value"));
+                            
+                            DateTextField calendar = new DateTextField("value", new PropertyModel(filterCriteria, "value"));
                             DatePicker datePicker = new DatePicker();
                             calendar.add(datePicker);
-                            fragment.add(calendar);*/
+                            fragment.add(calendar);
                             
                             if(filterCriteria.getExpression() == BETWEEN) {
                             	
-                            	/*DateTextField calendar2 = new DateTextField("value2", new PropertyModel(filterCriteria, "value2"));
+                            	DateTextField calendar2 = new DateTextField("value2", new PropertyModel(filterCriteria, "value2"));
                                 DatePicker datePicker2 = new DatePicker();
+                                calendar2.add(datePicker2);
                                 fragment.add(calendar2);
-                                calendar.add(datePicker);*/
+                                
                             	
-                                YuiCalendar calendar2 = new YuiCalendar("value2", new PropertyModel(filterCriteria, "value2"), false);                                                
-                                fragment.add(calendar2);                            
+                                /*YuiCalendar calendar2 = new YuiCalendar("value2", new PropertyModel(filterCriteria, "value2"), false);                                                
+                                fragment.add(calendar2);  */                          
                             }  else {
                                 fragment.add(new WebMarkupContainer("value2").setVisible(false));
                             }              
@@ -585,21 +590,21 @@ public class ColumnHeading implements Serializable {
                         Fragment getFilterUiFragment(MarkupContainer container, User user, Space space, Jtrac jtrac) {
                             Fragment fragment = new Fragment("fragParent", "dateField", container);                    
                             
-                            /*DateTextField calendar = new DateTextField("value", new PropertyModel(filterCriteria, "value"));
+                            DateTextField calendar = new DateTextField("value", new PropertyModel(filterCriteria, "value"));
                             DatePicker datePicker = new DatePicker();
                             calendar.add(datePicker);
-                            fragment.add(calendar);*/
-                            
-                            YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);                    
                             fragment.add(calendar);
+                            
+                            /*YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);                    
+                            fragment.add(calendar);*/
                             if(filterCriteria.getExpression() == BETWEEN) {
-                            	/*DateTextField calendar2 = new DateTextField("value2", new PropertyModel(filterCriteria, "value2"));
+                            	DateTextField calendar2 = new DateTextField("value2", new PropertyModel(filterCriteria, "value2"));
                                 DatePicker datePicker2 = new DatePicker();
-                                calendar.add(datePicker2);
-                                fragment.add(calendar2);*/
+                                calendar2.add(datePicker2);
+                                fragment.add(calendar2);
                             	
-                            	YuiCalendar calendar2 = new YuiCalendar("value2", new PropertyModel(filterCriteria, "value2"), false);                                                
-                                fragment.add(calendar2);                           
+                            	/*YuiCalendar calendar2 = new YuiCalendar("value2", new PropertyModel(filterCriteria, "value2"), false);                                                
+                                fragment.add(calendar2);   */                        
                             }  else {
                                 fragment.add(new WebMarkupContainer("value2").setVisible(false));
                             }              
@@ -635,21 +640,22 @@ public class ColumnHeading implements Serializable {
                         }
                         Fragment getFilterUiFragment(MarkupContainer container, User user, Space space, Jtrac jtrac) {
                             Fragment fragment = new Fragment("fragParent", "dateField", container);                    
-                            YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);
+                            /*YuiCalendar calendar = new YuiCalendar("value", new PropertyModel(filterCriteria, "value"), false);
+                            fragment.add(calendar);*/
+                            
+                            DateTextField calendar = new DateTextField("value", new PropertyModel(filterCriteria, "value"));
+                            DatePicker datePicker = new DatePicker();
+                            calendar.add(datePicker);
                             fragment.add(calendar);
                             
-                            /*DateTextField calendar = new DateTextField("value", new PropertyModel(filterCriteria, "value"));
-                            DatePicker datePicker = new DatePicker();
-                            calendar.add(datePicker);*/
-                            
                             if(filterCriteria.getExpression() == BETWEEN) {
-                            	/*DateTextField calendar2 = new DateTextField("value2", new PropertyModel(filterCriteria, "value2"));
+                            	DateTextField calendar2 = new DateTextField("value2", new PropertyModel(filterCriteria, "value2"));
                                 DatePicker datePicker2 = new DatePicker();
-                                calendar.add(datePicker2);
-                                fragment.add(calendar2);*/
+                                calendar2.add(datePicker2);
+                                fragment.add(calendar2);
                             	
-                            	YuiCalendar calendar2 = new YuiCalendar("value2", new PropertyModel(filterCriteria, "value2"), false);                                                
-                                fragment.add(calendar2);                            
+                            	/*YuiCalendar calendar2 = new YuiCalendar("value2", new PropertyModel(filterCriteria, "value2"), false);                                                
+                                fragment.add(calendar2); */                           
                             }  else {
                                 fragment.add(new WebMarkupContainer("value2").setVisible(false));
                             }              
